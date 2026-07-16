@@ -38,6 +38,10 @@ void resetScore(Score *score)
 void setMaxScore(Score *score, int newMaxScore)
 {
     assert(score != NULL);
-    if (newMaxScore >0)
+    if (newMaxScore > 0)
+    {
         score->maxScore = newMaxScore;
+        resetScore(score);
+    }
+
 }
