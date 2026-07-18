@@ -1,6 +1,9 @@
 #include "../unity/unity.h"
 #include "../src/score.h"
 
+void setUp(void) {}
+void tearDown(void) {}
+
 void testDefaultScore(void) 
 {
     Score s;
