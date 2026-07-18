@@ -1,9 +1,6 @@
 #include "../unity/unity.h"
 #include "../src/score.h"
 
-void setUp(void) {}
-void tearDown(void) {}
-
 void testDefaultScore(void) 
 {
     Score s;
@@ -64,15 +61,3 @@ void testResetScore(void)
     TEST_ASSERT_EQUAL_INT(0, s.rightScore);
 }
 
-
-int main(void) 
-{
-    UNITY_BEGIN();
-    RUN_TEST(testDefaultScore);
-    RUN_TEST(testIncreaseLeftAndRightPlayer);
-    RUN_TEST(testSetMaxScore);
-    RUN_TEST(testSetMaxScoreInvalid);
-    RUN_TEST(testIsGameOver);
-    RUN_TEST(testResetScore);
-    return UNITY_END();
-}

@@ -1,7 +1,7 @@
 # Компилятор и флаги
 CC       = gcc
 CFLAGS   = -Wall -Wextra -g -I./src -I./unity -I./tests
-LDFLAGS  =
+LDFLAGS  = -lm
 
 # Папки
 SRC_DIR  = src
