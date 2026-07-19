@@ -61,3 +61,12 @@ void testResetScore(void)
     TEST_ASSERT_EQUAL_INT(0, s.rightScore);
 }
 
+void testAllScore(void)
+{
+    RUN_TEST(testDefaultScore);
+    RUN_TEST(testIncreaseLeftAndRightPlayer);
+    RUN_TEST(testSetMaxScore);
+    RUN_TEST(testSetMaxScoreInvalid);
+    RUN_TEST(testIsGameOver);
+    RUN_TEST(testResetScore);
+}

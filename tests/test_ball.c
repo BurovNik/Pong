@@ -65,3 +65,12 @@ void testBallReset(void)
     TEST_ASSERT_EQUAL_FLOAT(k_width / 2., ball.xCor);
     TEST_ASSERT_EQUAL_FLOAT(k_height / 2., ball.yCor);
 }
+
+void testAllBall(void)
+{
+    RUN_TEST(testDefaultBallPosition);
+    RUN_TEST(testBallUpdate);
+    RUN_TEST(testBallBounceVertical);
+    RUN_TEST(testBallBounceHorizontal);
+    RUN_TEST(testBallReset);
+}

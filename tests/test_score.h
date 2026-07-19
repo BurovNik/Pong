@@ -7,5 +7,6 @@ void testSetMaxScore(void);
 void testSetMaxScoreInvalid(void);
 void testIsGameOver(void);
 void testResetScore(void);
+void testAllScore(void);
 
 #endif // TEST_BALL_H
