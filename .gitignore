@@ -1,0 +1,28 @@
+# Объектные файлы и бинарники
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# Папка сборки
+build/
+
+# Исполняемые файлы без расширения (Linux) и с .exe (Windows)
+pong
+run_tests
+pong.exe
+run_tests.exe
+
+# Резервные копии редакторов
+*~
+*.swp
+*.swo
+*.bak
+.DS_Store
+Thumbs.db
+
+# Файлы IDE
+.vscode/
+.idea/
+*.code-workspace
