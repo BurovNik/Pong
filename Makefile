@@ -23,6 +23,18 @@ BUILD_DIR = build
 
 # Исходники игры (все .c, кроме main.c)
 GAME_SRC = $(filter-out $(SRC_DIR)/main.c, $(wildcard $(SRC_DIR)/*.c))
+# Убираем оба файла ввода из автоматического списка
+GAME_SRC := $(filter-out $(SRC_DIR)/input_win.c $(SRC_DIR)/input_linux.c, $(GAME_SRC))
+
+# Добавляем нужный файл в зависимости от ОС
+ifeq ($(OS),Windows_NT)
+    INPUT_SRC = $(SRC_DIR)/input_win.c
+else
+    INPUT_SRC = $(SRC_DIR)/input_linux.c
+endif
+
+GAME_SRC += $(INPUT_SRC)
+
 GAME_OBJ = $(GAME_SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
 # Главный файл игры
