@@ -52,7 +52,7 @@ int main()
             menuDraw(&mainMenu);
             // Небольшая пауза, чтобы не загружать процессор в цикле меню
             #ifdef _WIN32
-                Sleep(30);
+                sleep(30);
             #else
                 usleep(30000);
             #endif
