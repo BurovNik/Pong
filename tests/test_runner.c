@@ -1,6 +1,7 @@
 #include "unity.h"
 #include "test_ball.h"
 #include "test_score.h"
+#include "test_menu.h"
 
 void setUp(void) {}
 void tearDown(void) {}
@@ -16,6 +17,8 @@ int main(void) {
     printf("\n==================\n test_score \n==================\n");
     testAllScore();
 
-    //test_score.c
+    //test_menu.c
+    printf("\n==================\n test_menu \n==================\n");
+    testAllMenu();
     return UNITY_END();
 }

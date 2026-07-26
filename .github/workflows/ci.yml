@@ -4,22 +4,19 @@ on:
   push:
     branches: [ "master", "develop", 'burov_branch', 'slava_luchiy' ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "develop" ]
 
 jobs:
   build-and-test:
-    # Запускаем на нескольких ОС, чтобы убедиться в кроссплатформенности
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
 
     steps:
-      # 1. Клонируем репозиторий
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Устанавливаем компилятор (для Windows нужен MinGW)
       - name: Install GCC (Linux)
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y build-essential
@@ -30,22 +27,17 @@ jobs:
         with:
           msystem: MINGW64
           update: true
-          install: >-
-            mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-make
+          install: mingw-w64-x86_64-gcc mingw-w64-x86_64-make
 
-      # 3. Сборка игры
       - name: Build game
         run: make game
-        # Для Windows нужно указать, что make может называться mingw32-make
-        # если утилита установлена как mingw32-make, но мы переименуем или используем alias
-        # Можно оставить как есть, если добавим в PATH, но проще использовать bash.
+        # Для Windows make из msys2 будет доступен как make
+        shell: bash
 
-      # 4. Запуск тестов
       - name: Run tests
         run: make test
+        shell: bash
 
-      # 5. Сохраняем собранные бинарники как артефакты
       - name: Upload artifacts (Linux)
         if: runner.os == 'Linux'
         uses: actions/upload-artifact@v4
