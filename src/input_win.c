@@ -1,4 +1,6 @@
+#ifdef _WIN32
 #include "input.h"
+#include <conio.h>
 
 void input_init()
 {
@@ -21,3 +23,4 @@ char input_read_key()
         return _getch();
     return '\0';
 }
+#endif
