@@ -35,7 +35,7 @@ int main()
                 // Ждём нажатия
                 while (!input_key_pressed()) {
                     #ifdef _WIN32
-                        Sleep(10);
+                        sleep(10);
                     #else
                         usleep(10000);
                     #endif
