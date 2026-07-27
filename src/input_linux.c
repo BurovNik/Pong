@@ -34,11 +34,53 @@ int input_key_pressed()
     return select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv) > 0;
 }
 
-char input_read_key()
+int input_read_key()
 {
-    char c = '\0';
-    if (input_key_pressed()) {
-        read(STDIN_FILENO, &c, 1);
+    if (!input_key_pressed())
+        return -1;
+
+    char c; 
+    read(STDIN_FILENO, &c, 1);
+
+    if (c == 27)
+    {
+        usleep(5000);
+        if (input_key_pressed())
+        {
+            char c2;
+            read(STDIN_FILENO, &c2, 1);
+            if (c2 == '[')
+            {
+                if (input_key_pressed())
+                {
+                    char c3;
+                    read(STDIN_FILENO, &c3, 1);
+                    switch (c3)
+                    {
+                    case 'A':
+                        return KEY_UP;
+                        break;
+                    case 'B':
+                        return KEY_DOWN;
+                        break;
+                    case 'C':
+                        return KEY_RIGHT;
+                        break;
+                    case 'D':
+                        return KEY_LEFT;
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
+        return KEY_ESC;
     }
-    return c;
+    else if (c == '\r' || c == '\n')
+    {
+        return KEY_ENTER;
+    }
+    return (unsigned char)c;
+    
 }

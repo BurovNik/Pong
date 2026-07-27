@@ -21,23 +21,31 @@ void menuAddItem(Menu *menu, const char *itemText, MenuAction action)
 
 MenuAction menuHandleInput(Menu *menu)
 {
-    if (!input_key_pressed()) return MENU_ACTION_NONE;
-    char key = input_read_key();
+    int key = input_read_key();
+    if (key == -1)
+        return MENU_ACTION_NONE;
 
-    switch (key) {
-        case 'w': case 'W': // эмулируем шаг вверх
-            if (menu->selectedIndex > 0)
-                menu->selectedIndex--;
-            break;
-        case 's': case 'S': // эмулируем шаг вниз
-            if (menu->selectedIndex < menu->itemCount - 1)
-                menu->selectedIndex++;
-            break;
-        case '\r': case '\n': // Enter
-            return menu->items[menu->selectedIndex].itemAction;
-        case 27: // ESC - можно назначить как выход или назад
-            // Пока не используем
-            break;
+    switch (key)
+    {
+    case KEY_UP:
+    case 'w': case 'W':
+        if (menu->selectedIndex > 0)
+            menu->selectedIndex--;
+        break;
+    case KEY_DOWN:
+    case 's': case 'S':
+        if(menu->selectedIndex < menu->itemCount)
+            menu->selectedIndex++;
+        break;
+    case KEY_ENTER:
+        return menu->items[menu->selectedIndex].itemAction;
+    case KEY_ESC:
+        // TODO обработка ESC
+        break;
+    
+    default:
+        printf("Неверная клавиша");
+        break;
     }
     return MENU_ACTION_NONE;
 }
@@ -52,5 +60,5 @@ void menuDraw(const Menu *menu)
         else
             printf("   %s\n", menu->items[i].itemText);
     }
-    printf("\nИспользуйте W/S и Enter\n");
+    printf("\nИспользуйте W/S или стрелки вверх/вниз для другой раскладки и Enter\n");
 }
