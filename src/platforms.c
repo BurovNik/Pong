@@ -29,17 +29,15 @@ int PlatformInit(Platforms *Platforms, int height, int width, int speedPlatform,
     }
     return error;
 }
-int MovePlatform(Platforms *Platforms, Borders* field, int isDown)
+void MovePlatform(Platforms *Platforms, Borders* field, int isDown)
 {
     assert(Platforms != NULL);
     assert(field != NULL);
         if(isDown == 1 && Platforms->Y + Platforms->speedPlatform + Platforms->heightPlatforms < field->height)
         {
             Platforms->Y += Platforms->speedPlatform;
-        }else if(isDown == 0 && Platforms->Y - Platforms->speedPlatform > field->height)
+        }else if(isDown == 0 && Platforms->Y - Platforms->speedPlatform > 0)
         {
             Platforms->Y -= Platforms->speedPlatform;
         }
-        
-    return 0;
 }

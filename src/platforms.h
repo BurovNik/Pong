@@ -1,5 +1,6 @@
 #ifndef PLATFORMS_H
 #define PLATFORMS_H
+#include "borders.h"
 
 typedef struct             /// структура для подвижный платформ
 {
@@ -18,5 +19,5 @@ typedef struct             /// структура для подвижный пл
 /// @return код ошбики 1 если проблема 0 если все правильно
 int PlatformInit(Platforms *Platforms, int height, int width, int speedPlatform, Borders* field, int isLeft); 
 
-int MovePlatform(Platforms *Platforms, Borders* field, int isDown);
+void MovePlatform(Platforms *Platforms, Borders* field, int isDown);
 #endif
