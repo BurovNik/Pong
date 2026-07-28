@@ -21,7 +21,7 @@ void menuAddItem(Menu *menu, const char *itemText, MenuAction action)
 
 MenuAction menuHandleInput(Menu *menu)
 {
-    int key = input_read_key();
+    int key = inputReadKey();
     if (key == -1)
         return MENU_ACTION_NONE;
 

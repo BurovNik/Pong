@@ -8,7 +8,7 @@
 
 static struct termios old_tio;
 
-void input_init()
+void inputInit()
 {
     struct termios new_tio;
     tcgetattr(STDIN_FILENO, &old_tio);
@@ -20,12 +20,12 @@ void input_init()
 
 }
 
-void input_restore()
+void inputRestore()
 {
     tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
 }
 
-int input_key_pressed()
+int inputKeyPressed()
 {
     fd_set fds;
     FD_ZERO(&fds);
@@ -34,9 +34,9 @@ int input_key_pressed()
     return select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv) > 0;
 }
 
-int input_read_key()
+int inputReadKey()
 {
-    if (!input_key_pressed())
+    if (!inputKeyPressed())
         return -1;
 
     char c; 
@@ -45,13 +45,13 @@ int input_read_key()
     if (c == 27)
     {
         usleep(5000);
-        if (input_key_pressed())
+        if (inputKeyPressed())
         {
             char c2;
             read(STDIN_FILENO, &c2, 1);
             if (c2 == '[')
             {
-                if (input_key_pressed())
+                if (inputKeyPressed())
                 {
                     char c3;
                     read(STDIN_FILENO, &c3, 1);

@@ -2,22 +2,22 @@
 #include "input.h"
 #include <conio.h>
 
-void input_init()
+void inputInit()
 {
 
 }
 
-void input_restore()
+void inputRestore()
 {
 
 }
 
-int input_key_pressed()
+int inputKeyPressed()
 {
     return _kbhit();
 }
 
-int input_read_key()
+int inputReadKey()
 {
     if (!_kbhit()) return -1;
 

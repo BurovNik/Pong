@@ -8,10 +8,10 @@
 #define KEY_ENTER   304
 #define KEY_ESC     305
 
-void input_init();
-void input_restore();
-int input_key_pressed();
-int input_read_key();
+void inputInit();
+void inputRestore();
+int inputKeyPressed();
+int inputReadKey();
 
 
 #endif // INPUT_H

@@ -17,7 +17,7 @@ int main()
 {
     printf("main is start");
 
-    input_init();
+    inputInit();
 
     Menu mainMenu;
     menuInit(&mainMenu, "=========PONG=========");
@@ -33,14 +33,14 @@ int main()
                 clear_screen();
                 printf("Игра началась бы здесь...\nНажмите любую клавишу для возврата в меню.\n");
                 // Ждём нажатия
-                while (!input_key_pressed()) {
+                while (!inputKeyPressed()) {
                     #ifdef _WIN32
                         sleep(10);
                     #else
                         usleep(10000);
                     #endif
                 }
-                input_read_key(); // съесть символ, чтобы не попал в меню
+                inputReadKey(); // съесть символ, чтобы не попал в меню
                 break;
             case MENU_ACTION_EXIT:
                 isRunning = 0;
@@ -62,6 +62,6 @@ int main()
     
     clear_screen();
     printf("Выход...\n");
-    input_restore();
+    inputRestore();
     return 0;
 }
