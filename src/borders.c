@@ -9,7 +9,7 @@ int bordersResize(Borders *borders, int height,int width)
     if(height <= 0 || width <= 0) 
     {
         error = 1;
-    }else{
+    }else{  
     borders->height = height;
     borders->width = width;
     borders->scoreX = width / 2 - 3;
