@@ -3,6 +3,7 @@
 #include <unistd.h>   // usleep (Linux); на Windows заменить на Sleep из windows.h
 #include "input.h"
 #include "menu.h"
+#include "history.h"
 
 // временно 
 #include "ball.h"
@@ -43,6 +44,7 @@ void render_game(const Ball *ball, const Score *score) {
 int main()
 {
     printf("main is start");
+    srand((unsigned int)time(NULL));
 
     inputInit();
 
@@ -55,42 +57,57 @@ int main()
     Menu mainMenu;
     menuInit(&mainMenu, "=========PONG=========");
     menuAddItem(&mainMenu, "1. Начать игру", MENU_ACTION_START);
+    menuAddItem(&mainMenu, "2. История игр", MENU_ACTION_SHOW_HISTORY);
     menuAddItem(&mainMenu, "0. Выход из игры", MENU_ACTION_EXIT);
 
     int isRunning = 1;
+    int state = 0; // заглушка, 0 - меню, 1 - заглушка игры, 2 заглушка истории
     while (isRunning)
     {
-        MenuAction action = menuHandleInput(&mainMenu);
-        switch (action) {
-            case MENU_ACTION_START:
-                clear_screen();
-                render_game(&ball, &score);
-                printf("Игра началась бы здесь...\nНажмите любую клавишу для возврата в меню.\n");
-                // Ждём нажатия
-                while (!inputKeyPressed()) {
-                    #ifdef _WIN32
-                        sleep(10);
-                    #else
-                        usleep(10000);
-                    #endif
-                }
-                inputReadKey(); // съесть символ, чтобы не попал в меню
-                break;
-            case MENU_ACTION_EXIT:
-                isRunning = 0;
-                break;
-            default:
-                break;
-        }
-        if (isRunning) {
+        if(state == 0) 
+        {
             menuDraw(&mainMenu);
-            // Небольшая пауза, чтобы не загружать процессор в цикле меню
+            MenuAction action = menuHandleInput(&mainMenu);
+            switch (action) {
+                case MENU_ACTION_START:
+                    clear_screen();
+                    render_game(&ball, &score);
+                    printf("Игра началась бы здесь...\nНажмите любую клавишу для возврата в меню.\n");
+                    state = 1;
+                    break;
+                case MENU_ACTION_SHOW_HISTORY:
+                    historyDisplay();
+                    printf("Нажмите любую клавишу для возврата в меню.\n");
+                    state = 2; // показ истории
+                    break;
+                case MENU_ACTION_EXIT:
+                    isRunning = 0;
+                    break;
+                default:
+                    break;
+            }
+        } // Меню
+        else 
+        {
+            if (inputKeyPressed()) 
+            {
+                inputReadKey(); // съедаем символ
+                state = 0;       // возвращаемся в меню
+                clear_screen();  // очистим перед следующей отрисовкой меню
+            }
             #ifdef _WIN32
-                sleep(30);
+                Sleep(10);
             #else
-                usleep(30000);
+                usleep(10000);
             #endif
-        }
+
+        } // игра или история
+        // Небольшая пауза, чтобы не загружать процессор в цикле меню
+        #ifdef _WIN32
+            Sleep(30);
+        #else
+            usleep(30000);
+        #endif
     }
     
     

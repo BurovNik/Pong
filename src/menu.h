@@ -6,6 +6,7 @@
 typedef enum {
     MENU_ACTION_NONE, ///< пустое действие
     MENU_ACTION_START, ///< старт игры
+    MENU_ACTION_SHOW_HISTORY, ///< показать результаты последних игр
     /// тут будут другие пункты меню
     MENU_ACTION_EXIT ///< выход
 } MenuAction;

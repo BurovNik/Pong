@@ -1,6 +1,7 @@
 #ifdef _WIN32
 #include "input.h"
 #include <conio.h>
+#include <windows.h>
 
 void inputInit()
 {
