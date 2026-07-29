@@ -42,7 +42,7 @@ int inputReadKey()
     char c; 
     read(STDIN_FILENO, &c, 1);
 
-    if (c == 27)
+    if (c == 27) // обработка стрелок стрелк при считывании с клавиш тоже начинается с кода ESC
     {
         usleep(5000);
         if (inputKeyPressed())
