@@ -96,7 +96,7 @@ int main()
                 clear_screen();  // очистим перед следующей отрисовкой меню
             }
             #ifdef _WIN32
-                Sleep(10);
+                sleep(10);
             #else
                 usleep(10000);
             #endif
@@ -104,7 +104,7 @@ int main()
         } // игра или история
         // Небольшая пауза, чтобы не загружать процессор в цикле меню
         #ifdef _WIN32
-            Sleep(30);
+            sleep(30);
         #else
             usleep(30000);
         #endif
