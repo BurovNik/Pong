@@ -2,6 +2,7 @@
 #define HISTORY_H
 #include "time.h"
 #include "score.h"
+#include <string.h>
 
 #define HISTORY_MAX_ENTRIES 10 ///< максимальное количество записей
 #define HISTORY_FILE "res/history.csv" ///< название файла с записями
@@ -35,5 +36,11 @@ void historyDisplay();
 /// @param record Указатель на запись, которую передаем
 /// @param score Указатель на счет
 void formGameRecord(GameRecord *record, const Score *score);
+
+/// @brief Метод для очистки файла с историей
+void clearHistory();
+
+/// @brief Установить свой путь к файлу истории (для тестов)
+void historySetFile(const char *newPath);
 
 #endif

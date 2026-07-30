@@ -2,7 +2,7 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include <string.h>
+
 #include <stdlib.h>
 
 // TODO может вынести в utility какой-нибудь ? 
@@ -16,6 +16,14 @@
     #include <sys/stat.h> // mkdir
     #define MKDIR(path) mkdir(path, 0755)
 #endif
+
+
+static const char *historyFilePath = HISTORY_FILE;
+
+void historySetFile(const char *newPath)
+{
+    historyFilePath = newPath;
+}
 
 void ensureDirectory(const char *filepath) 
 {
@@ -41,11 +49,12 @@ void ensureDirectory(const char *filepath)
 
 int historyLoad(GameRecord *records, int maxEntries)
 {
-    ensureDirectory(HISTORY_FILE);
+    ensureDirectory(historyFilePath);
     assert(records != NULL);
     // Открываем файл
-    FILE *file = fopen(HISTORY_FILE, "r");
-    if (!file) return 0;
+    FILE *file = fopen(historyFilePath, "r");
+    if (!file) 
+        return 0;
 
     // считываем данные пока есть куда и не конец файла
     int count = 0;
@@ -92,9 +101,10 @@ void historyAddRecordAndSave(const GameRecord *newRecord)
     }
 
     // Перезаписываем файл
-    ensureDirectory(HISTORY_FILE); // на всякий случай, но по идее в load уже должны были проверить
-    FILE *file = fopen(HISTORY_FILE, "w");
-    if (!file) return;
+    ensureDirectory(historyFilePath); // на всякий случай, но по идее в load уже должны были проверить
+    FILE *file = fopen(historyFilePath, "w");
+    if (!file) 
+        return;
 
     for (int i = 0; i < count; i++) {
         struct tm *tm = localtime(&existing[i].gameDateTime);
@@ -145,4 +155,15 @@ void formGameRecord(GameRecord *record, const Score *score)
     record->leftScore = score->leftScore;
     record->rightScore = score->rightScore;
     strcpy(record->winner, (score->leftScore > score->rightScore) ? "Left" : "Right");
+}
+
+void clearHistory()
+{
+    ensureDirectory(historyFilePath);
+
+    FILE *file = fopen(historyFilePath, "w");
+    if(!file)
+        return;
+    
+    fclose(file);
 }
