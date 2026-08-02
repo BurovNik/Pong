@@ -4,6 +4,53 @@
 
 void aiGodMode(Platform *aiPlatform, const Ball *ball, const Borders *borders)
 {
+    int movingToward = 0; // показывает двигается ли мяч К платформе или от нее 
+    int isBallMovingDown = ball->Vy > 0; // показывает двигается ли мяч вверх или вниз
+    int targetX;
+
+    if (aiPlatform->X < borders->width / 2.0) // ИИ платформа слева
+    {
+        movingToward = ball->Vx < 0;
+        targetX = aiPlatform->X + 1;
+    }
+    else // ИИ ракетка справа
+    {
+        movingToward = ball->Vx > 0;
+        targetX = aiPlatform->X - 1;
+    }
+
+    if (!movingToward)
+        return; // если летит не к платформе - ничего не делаем
+    
+    int timeToBallArrive = (targetX - ball->xCor) / ball->Vx;
+
+    if (timeToBallArrive < 0) // по идее так не может получиться
+        return;
+
+    int predictedY = ball->yCor + timeToBallArrive * ball->Vy;
+    while (predictedY < 0 || predictedY > borders->height)
+    {
+        if (predictedY < 0)
+            predictedY = -predictedY;
+        else
+            predictedY = 2 * borders->height - predictedY;
+    }
+
+    int targetY = predictedY - (aiPlatform->Y / 2.);
+    if (targetY < 0) 
+        targetY = 0;
+    if (targetY + aiPlatform->heightPlatforms > borders->height)
+        targetY =  borders->height - aiPlatform->heightPlatforms;
+
+    int currentY = aiPlatform->Y;
+    if (fabs(currentY - targetY) < 0.5f) // уже на месте
+        return; 
+
+    if (currentY < targetY)
+        MovePlatform(aiPlatform, borders, 1);
+    else
+        MovePlatform(aiPlatform, borders, 0);
+
     return;
 }
 
@@ -60,7 +107,7 @@ void aiHardMode(Platform *aiPlatform, int targetY, const Borders *borders)
 
 void aiMovePlatform(Platform *aiPlatform, const Ball *ball,const Borders *borders, AIPlayerLevel aiLevel)
 {
-    float targetY = ball->yCor - aiPlatform->heightPlatforms / 2.0f;
+    float targetY = ball->yCor - aiPlatform->heightPlatforms / 2.0f; // targetY такой, чтобы кордината мяча была по центру платформы
    
     switch (aiLevel)
     {

@@ -7,11 +7,13 @@
 
 // TODO убрать заглушки после мерджа
 typedef struct {
+    int X;
     int Y;
     int heightPlatforms;  // высота платформы
 } Platform;
 
 typedef struct {
+    int width;
     int height;  // высота поля
 } Borders;
 
