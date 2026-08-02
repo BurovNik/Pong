@@ -15,7 +15,7 @@ typedef struct {
     int height;  // высота поля
 } Borders;
 
-void MovePlatform(Platform *Platforms, Borders* field, int isDown) {}
+void MovePlatform(Platform *Platforms, const Borders* field, int isDown) {}
 // вот до сюда
 
 typedef enum {

@@ -2,30 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-void aiMovePlatform(Platform *aiPlatform, const Ball *ball,const Borders *borders, AIPlayerLevel aiLevel)
-{
-    float targetY = ball->yCor - aiPlatform->heightPlatforms / 2.0f;
-   
-    switch (aiLevel)
-    {
-        case E_GODMOD:
-            aiGodMode(aiPlatform, ball, borders);
-            break;
-        case E_EASY:
-            aiEasyMode(aiPlatform, targetY, borders);
-            break;
-        case E_MEDIUM:
-            aiMediumMode(aiPlatform, targetY, borders);
-            break;
-        case E_HARD:
-            aiHardMode(aiPlatform, targetY, borders);
-            break;
-        default:
-            break;
-    }
-
-}   
-
 void aiGodMode(Platform *aiPlatform, const Ball *ball, const Borders *borders)
 {
     return;
@@ -81,3 +57,27 @@ void aiHardMode(Platform *aiPlatform, int targetY, const Borders *borders)
     // 1 .. 3 не двигаемся в40 % случаев
     return;
 }
+
+void aiMovePlatform(Platform *aiPlatform, const Ball *ball,const Borders *borders, AIPlayerLevel aiLevel)
+{
+    float targetY = ball->yCor - aiPlatform->heightPlatforms / 2.0f;
+   
+    switch (aiLevel)
+    {
+        case E_GODMOD:
+            aiGodMode(aiPlatform, ball, borders);
+            break;
+        case E_EASY:
+            aiEasyMode(aiPlatform, targetY, borders);
+            break;
+        case E_MEDIUM:
+            aiMediumMode(aiPlatform, targetY, borders);
+            break;
+        case E_HARD:
+            aiHardMode(aiPlatform, targetY, borders);
+            break;
+        default:
+            break;
+    }
+
+}   
