@@ -2,10 +2,44 @@
 #include <stdlib.h>
 #include <math.h>
 
+void MovePlatform(Platform *Platforms, const Borders* field, int isDown) {}
+
+static const struct 
+{
+    AIPlayerLevel level;
+    const char * levelName;
+} levelTable[] = 
+{
+    {E_EASY , "Легкий"},
+    {E_MEDIUM, "Средний"},
+    {E_HARD, "Сложный"},
+    {E_GODMOD, "Невозможный"}
+};
+
+static const int levelCount = sizeof(levelTable) / sizeof(levelTable[0]);
+
+int aiGetLevelCount(void) 
+{
+    return levelCount;
+}
+
+const char* aiGetLevelName(int index) 
+{
+    if (index < 0 || index >= levelCount) 
+        return "Unknown";
+    return levelTable[index].levelName;
+}
+
+AIPlayerLevel aiGetLevelByIndex(int index) 
+{
+    if (index < 0 || index >= levelCount) 
+        return E_MEDIUM; // по умолчанию
+    return levelTable[index].level;
+}
+
 void aiGodMode(Platform *aiPlatform, const Ball *ball, const Borders *borders)
 {
     int movingToward = 0; // показывает двигается ли мяч К платформе или от нее 
-    int isBallMovingDown = ball->Vy > 0; // показывает двигается ли мяч вверх или вниз
     int targetX;
 
     if (aiPlatform->X < borders->width / 2.0) // ИИ платформа слева

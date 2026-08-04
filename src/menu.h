@@ -7,6 +7,7 @@ typedef enum {
     MENU_ACTION_NONE, ///< пустое действие
     MENU_ACTION_START, ///< старт игры
     MENU_ACTION_SHOW_HISTORY, ///< показать результаты последних игр
+    MENU_ACTION_CHOOSE_AI_DIFFICULTY, ///< выбрать сложность ИИ соперника
     /// тут будут другие пункты меню
     MENU_ACTION_EXIT ///< выход
 } MenuAction;
@@ -35,6 +36,7 @@ MenuAction menuHandleInput(Menu *menu);
 
 void menuDraw(const Menu *menu);
 
+int menuGetSelectedIndex(const Menu *menu);
 
 
 

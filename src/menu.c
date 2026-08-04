@@ -62,3 +62,8 @@ void menuDraw(const Menu *menu)
     }
     printf("\nИспользуйте W/S или стрелки вверх/вниз для другой раскладки и Enter\n");
 }
+
+int menuGetSelectedIndex(const Menu *menu) 
+{
+    return menu->selectedIndex;
+}

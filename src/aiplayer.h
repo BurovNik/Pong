@@ -17,11 +17,11 @@ typedef struct {
     int height;  // высота поля
 } Borders;
 
-void MovePlatform(Platform *Platforms, const Borders* field, int isDown) {}
+void MovePlatform(Platform *Platforms, const Borders* field, int isDown);
 // вот до сюда
 
 typedef enum {
-    E_EASY = 1,
+    E_EASY = 0,
     E_MEDIUM,
     E_HARD,
     E_GODMOD
@@ -33,5 +33,15 @@ typedef enum {
 /// @param aiLevel сложность игры
 void aiMovePlatform(Platform *aiPlatform, const Ball *ball, const Borders *borders, AIPlayerLevel aiLevel);
 
+/// @brief Метод для получения количества уровней сложности ИИ
+/// @return количество уровней сложности ИИ
+int aiGetLevelCount(void);
+
+/// @brief Метод для получения названия уровня сложности ИИ
+/// @param index индекс сложности
+/// @return 
+const char* aiGetLevelName(int index);
+
+AIPlayerLevel aiGetLevelByIndex(int index);
 
 #endif //AIPLAYER_H
