@@ -6,12 +6,14 @@
 
 #define HISTORY_MAX_ENTRIES 10 ///< максимальное количество записей
 #define HISTORY_FILE "res/history.csv" ///< название файла с записями
+#define PLAYER_NAME_MAX_LEN 32 ///< максимальная длина имени игрока (включая \0)
 
 typedef struct {
     time_t gameDateTime;
     int leftScore;
     int rightScore;
-    char winner[10];
+    char leftPlayerName[PLAYER_NAME_MAX_LEN];  ///< имя левого игрока (для ИИ - уровень сложности)
+    char rightPlayerName[PLAYER_NAME_MAX_LEN]; ///< имя правого игрока (для ИИ - уровень сложности)
 } GameRecord;
 
 /// @brief Метод для проверки сущесвтует ли директория с результатми и создает ее в случае необходимости
@@ -32,10 +34,12 @@ void historyAddRecordAndSave(const GameRecord *newRecord);
 /// @brief Метод для отображения записей из файла с историей
 void historyDisplay();
 
-/// @brief Метод для формирования записи на основе счета 
+/// @brief Метод для формирования записи на основе счета и имен игроков
 /// @param record Указатель на запись, которую передаем
 /// @param score Указатель на счет
-void formGameRecord(GameRecord *record, const Score *score);
+/// @param leftName имя левого игрока (для ИИ - название уровня сложности)
+/// @param rightName имя правого игрока (для ИИ - название уровня сложности)
+void formGameRecord(GameRecord *record, const Score *score, const char *leftName, const char *rightName);
 
 /// @brief Метод для очистки файла с историей
 void clearHistory();
