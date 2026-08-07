@@ -1,5 +1,5 @@
 #include "stdlib.h"
-#include "Platforms.h"
+#include "platforms.h"
 #include "borders.h"
 #include <assert.h>
 
