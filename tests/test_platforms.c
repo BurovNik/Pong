@@ -13,21 +13,21 @@ static const int k_speedPlatforms = 5;
 
 void testPlatformInit(void)
 {
-    Platforms Platformleft;
+    Platform platformleft;
     Borders field;
     bordersInit(&field, 100, 200);
     int isLeft = 1;
-    int result = PlatformInit(&Platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
+    int result = platformInit(&platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(0, result);
-    TEST_ASSERT_EQUAL_INT(k_height, Platformleft.heightPlatforms);
-    TEST_ASSERT_EQUAL_INT(k_width, Platformleft.widthPlatforms);
-    TEST_ASSERT_EQUAL_INT(k_speedPlatforms, Platformleft.speedPlatform);
-    TEST_ASSERT_EQUAL_INT(field.width * 0.1, Platformleft.X);
-    TEST_ASSERT_EQUAL_INT(field.height / 2 - Platformleft.heightPlatforms / 2, Platformleft.Y);
+    TEST_ASSERT_EQUAL_INT(k_height, platformleft.heightPlatforms);
+    TEST_ASSERT_EQUAL_INT(k_width, platformleft.widthPlatforms);
+    TEST_ASSERT_EQUAL_INT(k_speedPlatforms, platformleft.speedPlatform);
+    TEST_ASSERT_EQUAL_INT(field.width * 0.1, platformleft.X);
+    TEST_ASSERT_EQUAL_INT(field.height / 2 - platformleft.heightPlatforms / 2, platformleft.Y);
 
-    Platforms PlatformRight;
+    Platform PlatformRight;
     isLeft = 0;
-    result = PlatformInit(&PlatformRight, k_height, k_width, k_speedPlatforms, &field, isLeft);
+    result = platformInit(&PlatformRight, k_height, k_width, k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(0, result);
     TEST_ASSERT_EQUAL_INT(k_height, PlatformRight.heightPlatforms);
     TEST_ASSERT_EQUAL_INT(k_width, PlatformRight.widthPlatforms);
@@ -37,17 +37,17 @@ void testPlatformInit(void)
 }
 void testPLatformFailInit(void)
 {
-    Platforms Platformleft;
+    Platform Platformleft;
     Borders field;
     bordersInit(&field, 100, 200);
     int isLeft = 1;
-    int result = PlatformInit(&Platformleft, -k_height, k_width, k_speedPlatforms, &field, isLeft);
+    int result = platformInit(&Platformleft, -k_height, k_width, k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(1, result);
 
-    result = PlatformInit(&Platformleft, k_height, -k_width, k_speedPlatforms, &field, isLeft);
+    result = platformInit(&Platformleft, k_height, -k_width, k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(1, result);
 
-    result = PlatformInit(&Platformleft, k_height, k_width, -k_speedPlatforms, &field, isLeft);
+    result = platformInit(&Platformleft, k_height, k_width, -k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(1, result);
 }
 void testMovePlatform(void)
@@ -57,56 +57,56 @@ void testMovePlatform(void)
 }
 void testMoveUpPlatform(void)
 {
-    Platforms Platformleft;
+    Platform Platformleft;
     Borders field;
     bordersInit(&field, 100, 200);
     int isLeft = 1;
-    int result = PlatformInit(&Platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
+    int result = platformInit(&Platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(0, result);
     int isDown = 0;
     int yBeforeMove = Platformleft.Y;
-    MovePlatform(&Platformleft, &field, isDown);
+    movePlatform(&Platformleft, &field, isDown);
     TEST_ASSERT_EQUAL_INT(yBeforeMove - Platformleft.speedPlatform, Platformleft.Y);
 }
 
 void testMoveDownPlatform(void)
 {
-    Platforms Platformleft;
+    Platform platformleft;
     Borders field;
     bordersInit(&field, 100, 200);
     int isLeft = 1;
-    int result = PlatformInit(&Platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
+    int result = platformInit(&platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(0, result);
     int isDown = 1;
-    int yBeforeMove = Platformleft.Y;
-    MovePlatform(&Platformleft, &field, isDown);
-    TEST_ASSERT_EQUAL_INT(yBeforeMove + Platformleft.speedPlatform, Platformleft.Y);
+    int yBeforeMove = platformleft.Y;
+    movePlatform(&platformleft, &field, isDown);
+    TEST_ASSERT_EQUAL_INT(yBeforeMove + platformleft.speedPlatform, platformleft.Y);
 }
 void testMoveFailUpPlatform(void)
 {
-    Platforms Platformleft;
+    Platform Platformleft;
     Borders field;
     bordersInit(&field, 100, 200);
     int isLeft = 1;
-    int result = PlatformInit(&Platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
+    int result = platformInit(&Platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(0, result);
     int isDown = 0;
     Platformleft.Y = 0;
-    MovePlatform(&Platformleft, &field, isDown);
+    movePlatform(&Platformleft, &field, isDown);
     TEST_ASSERT_EQUAL_INT(0, Platformleft.Y);
 
 }
 void testMoveFailDownPlatform(void)
 {
-    Platforms Platformleft;
+    Platform Platformleft;
     Borders field;
     bordersInit(&field, 100, 200);
     int isLeft = 1;
-    int result = PlatformInit(&Platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
+    int result = platformInit(&Platformleft, k_height, k_width, k_speedPlatforms, &field, isLeft);
     TEST_ASSERT_EQUAL_INT(0, result);
     int isDown = 1;
     Platformleft.Y = field.height - Platformleft.heightPlatforms;
-    MovePlatform(&Platformleft, &field, isDown);
+    movePlatform(&Platformleft, &field, isDown);
     TEST_ASSERT_EQUAL_INT(field.height - Platformleft.heightPlatforms, Platformleft.Y);
 }
 void testPlatformsAll(void)

@@ -3,41 +3,47 @@
 #include "borders.h"
 #include <assert.h>
 
-int PlatformInit(Platforms *Platforms, int height, int width, int speedPlatform, Borders* field, int isLeft)
+int platformInit(Platform *Platform, int height, int width, int speedPlatform, const Borders *field, int isLeft)
 {
 
-    assert(Platforms != NULL);
+    assert(Platform != NULL);
     assert(field != NULL);
     int error = 0;
     if(height <= 0 || width <= 0 || speedPlatform <= 0)
     {
         error = 1;
+    }else if (height > field->height - 2)
+    {
+        error = 2;
+    }else if (width > field->width - 2)
+    {
+        error = 3;
     }else
     {  
-        Platforms->heightPlatforms = height;
-        Platforms->widthPlatforms = width;
-        Platforms->speedPlatform = speedPlatform; // скорость тоже одинаковая, но как ее реализовать вводом или она будет статическая еще не понял)
-        Platforms-> Y = field->height / 2 - Platforms->heightPlatforms / 2;
+        Platform->heightPlatforms = height;
+        Platform->widthPlatforms = width;
+        Platform->speedPlatform = speedPlatform; // скорость тоже одинаковая, но как ее реализовать вводом или она будет статическая еще не понял)
+        Platform-> Y = field->height / 2 - Platform->heightPlatforms / 2;
         if(isLeft == 1)
         {
-            Platforms->X = field->width * 0.1;
+            Platform->X = field->width * 0.1;
         }else
         {
-            Platforms->X = field->width * 0.9;
+            Platform->X = field->width * 0.9;
 
         }
     }
     return error;
 }
-void MovePlatform(Platforms *Platforms, Borders* field, int isDown)
+void movePlatform(Platform *Platform, const Borders *field, int isDown)
 {
-    assert(Platforms != NULL);
+    assert(Platform != NULL);
     assert(field != NULL);
-        if(isDown == 1 && Platforms->Y + Platforms->speedPlatform + Platforms->heightPlatforms < field->height)
+        if(isDown == 1 && Platform->Y + Platform->speedPlatform + Platform->heightPlatforms < field->height)
         {
-            Platforms->Y += Platforms->speedPlatform;
-        }else if(isDown == 0 && Platforms->Y - Platforms->speedPlatform > 0)
+            Platform->Y += Platform->speedPlatform;
+        }else if(isDown == 0 && Platform->Y - Platform->speedPlatform > 0)
         {
-            Platforms->Y -= Platforms->speedPlatform;
+            Platform->Y -= Platform->speedPlatform;
         }
 }

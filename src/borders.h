@@ -14,9 +14,14 @@ typedef struct
 /// @param borders указатель на поле
 /// @param height высота поля
 /// @param width ширина поля
-/// @return код ошбики 1 если проблема 0 если все правильно
+/// @return функция сделана так, что она работает с помощью вызова функции bordersResize
 int bordersInit(Borders *borders, int height,int width); 
 
+/// @brief метод для изменения размера поля
+/// @param borders само поле
+/// @param height высота поля
+/// @param width ширина поля
+/// @return код ошбики 1 если проблема 0 если все правильно
 int bordersResize(Borders *borders, int height,int width);
 
 #endif

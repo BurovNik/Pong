@@ -9,15 +9,19 @@ typedef struct             /// структура для подвижный пл
     int widthPlatforms;             /// ширина платформы
     int heightPlatforms;            /// высота платформы
     int speedPlatform;     /// скорость передвижения платформы
-}Platforms;
+}Platform;
 
 /// @brief метод для инициализации платформ
-/// @param Platforms указатель на платформы
+/// @param Platform указатель на платформы
 /// @param width ширина платформы
 /// @param height высота платформы
 /// @param speedPlatform скорость передвижения платформы
 /// @return код ошбики 1 если проблема 0 если все правильно
-int PlatformInit(Platforms *Platforms, int height, int width, int speedPlatform, Borders* field, int isLeft); 
+int platformInit(Platform *Platform, int height, int width, int speedPlatform, const Borders *field, int isLeft); 
 
-void MovePlatform(Platforms *Platforms, Borders* field, int isDown);
+/// @brief метод для изменение платформ
+/// @param Platform указатель на платфомры
+/// @param field указатель на поле
+/// @param isDown перемещение вниз
+void movePlatform(Platform *Platform, const Borders *field, int isDown);
 #endif
