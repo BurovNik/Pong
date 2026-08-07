@@ -6,8 +6,8 @@ typedef struct             /// структура для подвижный пл
 {
     int Y;                 /// координата для вертикали
     int X;                 /// координата для горизонатли
-    int widthPlatforms;             /// ширина платформы
-    int heightPlatforms;            /// высота платформы
+    int widthPlatform;    /// ширина платформы
+    int heightPlatform;   /// высота платформы
     int speedPlatform;     /// скорость передвижения платформы
 }Platform;
 
@@ -17,11 +17,11 @@ typedef struct             /// структура для подвижный пл
 /// @param height высота платформы
 /// @param speedPlatform скорость передвижения платформы
 /// @return код ошбики 1 если проблема 0 если все правильно
-int platformInit(Platform *Platform, int height, int width, int speedPlatform, const Borders *field, int isLeft); 
+int platformInit(Platform *platform, int height, int width, int speedPlatform, const Borders *field, int isLeft); 
 
 /// @brief метод для изменение платформ
 /// @param Platform указатель на платфомры
 /// @param field указатель на поле
 /// @param isDown перемещение вниз
-void movePlatform(Platform *Platform, const Borders *field, int isDown);
+void movePlatform(Platform *platform, const Borders *field, int isDown);
 #endif
