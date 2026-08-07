@@ -34,7 +34,7 @@ MenuAction menuHandleInput(Menu *menu)
         break;
     case KEY_DOWN:
     case 's': case 'S':
-        if(menu->selectedIndex < menu->itemCount)
+        if(menu->selectedIndex < menu->itemCount - 1)
             menu->selectedIndex++;
         break;
     case KEY_ENTER:
@@ -44,7 +44,6 @@ MenuAction menuHandleInput(Menu *menu)
         break;
     
     default:
-        printf("Неверная клавиша");
         break;
     }
     return MENU_ACTION_NONE;
