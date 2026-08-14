@@ -27,15 +27,29 @@ typedef struct
     int selectedIndex;
 } Menu;
 
-
+/// @brief Метод для инициализации игры
+/// @param menu указатель на структуру меню
+/// @param menuTitle Заголовок в меню
 void menuInit(Menu *menu, const char* menuTitle);
 
+/// @brief Метод для добавления пукта в меню
+/// @param menu указатель на меню
+/// @param itemText надпись в этом пункту
+/// @param action действие пункта
 void menuAddItem(Menu *menu, const char *itemText, MenuAction action);
 
+/// @brief Обработка нажатия внутри меню
+/// @param menu указатель на меню
+/// @return Действие выбранного пункта меню
 MenuAction menuHandleInput(Menu *menu);
 
+/// @brief Отображение в консоли меню
+/// @param menu указатель на меню
 void menuDraw(const Menu *menu);
 
+/// @brief Поиск индекса выбранного пункта
+/// @param menu указатель на меню
+/// @return индекс выбранного пункта
 int menuGetSelectedIndex(const Menu *menu);
 
 

@@ -44,7 +44,7 @@ int inputReadKey()
 
     if (c == 27) // обработка стрелок стрелк при считывании с клавиш тоже начинается с кода ESC
     {
-        usleep(5000);
+        usleep(10000);
         if (inputKeyPressed())
         {
             char c2;

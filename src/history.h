@@ -9,9 +9,9 @@
 #define PLAYER_NAME_MAX_LEN 32 ///< максимальная длина имени игрока (включая \0)
 
 typedef struct {
-    time_t gameDateTime;
-    int leftScore;
-    int rightScore;
+    time_t gameDateTime; ///< Дата игры
+    int leftScore; ///< счет левого игрока
+    int rightScore; ///< счет правого игрока
     char leftPlayerName[PLAYER_NAME_MAX_LEN];  ///< имя левого игрока (для ИИ - уровень сложности)
     char rightPlayerName[PLAYER_NAME_MAX_LEN]; ///< имя правого игрока (для ИИ - уровень сложности)
 } GameRecord;

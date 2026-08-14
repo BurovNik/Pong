@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include <stdlib.h>
+#define PATH_LEN  1024
 
 // TODO может вынести в utility какой-нибудь ? 
 #include <sys/stat.h>
@@ -28,7 +29,7 @@ void historySetFile(const char *newPath)
 void ensureDirectory(const char *filepath) 
 {
     // Копируем путь в буфер, чтобы не испортить оригинал
-    char path[256];
+    char path[PATH_LEN];
     strncpy(path, filepath, sizeof(path) - 1);
     path[sizeof(path) - 1] = '\0';
 
@@ -68,6 +69,8 @@ static int historyParseLine(char *line, GameRecord *out)
 
 static void historyFormatLine(const GameRecord *rec, char *buf, size_t bufSize)
 {
+    assert(rec != NULL);
+    
     struct tm *tm = localtime(&rec->gameDateTime);
     snprintf(buf, bufSize, "%04d-%02d-%02d %02d:%02d,%d,%d,%s,%s\n",
              tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
@@ -87,7 +90,7 @@ int historyLoad(GameRecord *records, int maxEntries)
 
     // считываем данные пока есть куда и не конец файла
     int count = 0;
-    char line[256];
+    char line[PATH_LEN];
     while (count < maxEntries && fgets(line, sizeof(line), file))
     {
         GameRecord tmpRecord = {0};
@@ -128,7 +131,7 @@ void historyAddRecordAndSave(const GameRecord *newRecord)
         return;
 
     for (int i = 0; i < count; i++) {
-        char line[256];
+        char line[PATH_LEN];
         historyFormatLine(&existing[i], line, sizeof(line));
         fputs(line, file);
     }

@@ -42,6 +42,9 @@ int aiGetLevelCount(void);
 /// @return 
 const char* aiGetLevelName(int index);
 
+/// @brief Функция для получения уровня игры по индексу
+/// @param index индекс, как в меню
+/// @return уровень игры
 AIPlayerLevel aiGetLevelByIndex(int index);
 
 #endif //AIPLAYER_H

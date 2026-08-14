@@ -1,6 +1,7 @@
 #include "aiplayer.h"
 #include <stdlib.h>
 #include <math.h>
+#include <assert.h>
 
 void MovePlatform(Platform *Platforms, const Borders* field, int isDown) {}
 
@@ -39,6 +40,10 @@ AIPlayerLevel aiGetLevelByIndex(int index)
 
 void aiGodMode(Platform *aiPlatform, const Ball *ball, const Borders *borders)
 {
+    assert(aiPlatform != NULL);
+    assert(ball != NULL);
+    assert(borders != NULL);
+
     int movingToward = 0; // показывает двигается ли мяч К платформе или от нее 
     int targetX;
 
@@ -56,6 +61,9 @@ void aiGodMode(Platform *aiPlatform, const Ball *ball, const Borders *borders)
     if (!movingToward)
         return; // если летит не к платформе - ничего не делаем
     
+    if (ball->Vx == 0)
+        return;
+
     int timeToBallArrive = (targetX - ball->xCor) / ball->Vx;
 
     if (timeToBallArrive < 0) // по идее так не может получиться
@@ -70,7 +78,7 @@ void aiGodMode(Platform *aiPlatform, const Ball *ball, const Borders *borders)
             predictedY = 2 * borders->height - predictedY;
     }
 
-    int targetY = predictedY - (aiPlatform->Y / 2.);
+    int targetY = predictedY - (aiPlatform->heightPlatforms / 2.);
     if (targetY < 0) 
         targetY = 0;
     if (targetY + aiPlatform->heightPlatforms > borders->height)
@@ -90,6 +98,9 @@ void aiGodMode(Platform *aiPlatform, const Ball *ball, const Borders *borders)
 
 void aiEasyMode(Platform *aiPlatform, int targetY, const Borders *borders)
 {
+    assert(aiPlatform != NULL);
+    assert(borders != NULL);
+
     int random = rand() % 4;
     int currentY = aiPlatform->Y;
     int needDown = (currentY < targetY);
@@ -107,6 +118,9 @@ void aiEasyMode(Platform *aiPlatform, int targetY, const Borders *borders)
 
 void aiMediumMode(Platform *aiPlatform, int targetY, const Borders *borders)
 {
+    assert(aiPlatform != NULL);
+    assert(borders != NULL);
+
     int random = rand() % 10;
     int currentY = aiPlatform->Y;
     int needDown = currentY < targetY;
@@ -124,6 +138,9 @@ void aiMediumMode(Platform *aiPlatform, int targetY, const Borders *borders)
 
 void aiHardMode(Platform *aiPlatform, int targetY, const Borders *borders)
 {
+    assert(aiPlatform != NULL);
+    assert(borders != NULL);
+
     int random = rand() % 20;
     int currentY = aiPlatform->Y;
     int needDown = currentY < targetY;
@@ -141,6 +158,10 @@ void aiHardMode(Platform *aiPlatform, int targetY, const Borders *borders)
 
 void aiMovePlatform(Platform *aiPlatform, const Ball *ball,const Borders *borders, AIPlayerLevel aiLevel)
 {
+    assert(aiPlatform != NULL);
+    assert(borders != NULL);
+    assert(ball != NULL);
+
     float targetY = ball->yCor - aiPlatform->heightPlatforms / 2.0f; // targetY такой, чтобы кордината мяча была по центру платформы
    
     switch (aiLevel)
