@@ -11,6 +11,7 @@ void clearScreen(void)
         system("cls");
     #else
         printf("\033[2J\033[H");
+        fflush(stdout);
     #endif
 }
 
@@ -46,17 +47,18 @@ void renderGame(const Game *game)
     // Нижняя граница
     for (int x = 0; x < game->borders.width; x++)
         putchar('-');
+    putchar('\n');
 
     const char *leftName = "Игрок";
     const char *rightName = aiGetLevelName(game->aiLevel);
-    printf("\n%s %d : %d %s\n", leftName, game->score.leftScore, game->score.rightScore, rightName);
+    printf("%s %d : %d %s   |   ", leftName, game->score.leftScore, game->score.rightScore, rightName);
 
     if (game->state == STATE_PAUSE) {
-        printf("\nПАУЗА. ESC - продолжить, Q - выйти в меню\n");
+        printf("ПАУЗА. ESC - продолжить, Q - выйти в меню\n");
     } else if (game->state == STATE_GAME_OVER) {
         const char *winner = (game->score.leftScore > game->score.rightScore) ? leftName : rightName;
-        printf("\nПобедил %s! Нажмите любую клавишу...\n", winner);
+        printf("Победил %s! Нажмите любую клавишу...\n", winner);
     } else {
-        printf("\nESC - пауза\n");
+        printf("ESC - пауза\n");
     }
 }

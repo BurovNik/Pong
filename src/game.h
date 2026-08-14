@@ -6,7 +6,7 @@
 #include "aiplayer.h"
 
 #define FIELD_WIDTH     80
-#define FIELD_HEIGHT    24
+#define FIELD_HEIGHT    20
 #define MAX_SCORE       10
 #define PLATFORM_WIDTH   4
 #define PLATFORM_HEIGHT  4

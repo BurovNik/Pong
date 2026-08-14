@@ -40,6 +40,7 @@ static void runGame(Game *game, AIPlayerLevel aiLevel)
 
     while (game->state != STATE_MENU)
     {
+        clearScreen();
         int key = inputReadKey();
         gameHandleInput(game, key);
         gameUpdate(game, FIXED_DT);

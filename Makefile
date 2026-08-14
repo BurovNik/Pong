@@ -1,6 +1,6 @@
 # Компилятор и флаги
 CC       = gcc
-CFLAGS   = -Wall -Wextra -g -I./src -I./unity -I./tests
+CFLAGS   = -Wall -Wextra -g -I./src -I./unity -I./tests -MMD -MP
 
 # Определяем расширение исполняемых файлов
 ifeq ($(OS),Windows_NT)
@@ -76,6 +76,12 @@ $(BUILD_DIR)/%.o: $(TEST_DIR)/%.c | $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: $(UNITY_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# Учитываем зависимости от заголовков (генерируются флагом -MMD)
+-include $(GAME_OBJ:.o=.d)
+-include $(MAIN_OBJ:.o=.d)
+-include $(TEST_OBJ:.o=.d)
+-include $(UNITY_OBJ:.o=.d)
 
 # Создание папки build
 $(BUILD_DIR):
