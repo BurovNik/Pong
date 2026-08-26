@@ -3,6 +3,8 @@
 #include "test_score.h"
 #include "test_menu.h"
 #include "test_history.h"
+#include "test_borders.h"
+#include "test_Platforms.h"
 
 void setUp(void);
 void tearDown(void);
@@ -26,5 +28,12 @@ int main(void) {
     printf("\n==================\n test_menu \n==================\n");
     testAllHistory();
     
+    //test_borders.c
+    printf("\n==================\n test_Borders \n==================\n");
+    testAllBorders();
+
+    //test_platforms.c
+    printf("\n==================\n test_Platforms \n==================\n");
+    testPlatformsAll();
     return UNITY_END();
 }
