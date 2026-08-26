@@ -26,3 +26,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.code-workspace
+
+# папка с ресурсами 
+res/history.csv

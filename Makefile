@@ -1,6 +1,6 @@
 # Компилятор и флаги
 CC       = gcc
-CFLAGS   = -Wall -Wextra -g -I./src -I./unity -I./tests
+CFLAGS   = -Wall -Wextra -g -I./src -I./unity -I./tests -MMD -MP
 
 # Определяем расширение исполняемых файлов
 ifeq ($(OS),Windows_NT)
@@ -23,6 +23,18 @@ BUILD_DIR = build
 
 # Исходники игры (все .c, кроме main.c)
 GAME_SRC = $(filter-out $(SRC_DIR)/main.c, $(wildcard $(SRC_DIR)/*.c))
+# Убираем оба файла ввода из автоматического списка
+GAME_SRC := $(filter-out $(SRC_DIR)/input_win.c $(SRC_DIR)/input_linux.c, $(GAME_SRC))
+
+# Добавляем нужный файл в зависимости от ОС
+ifeq ($(OS),Windows_NT)
+    INPUT_SRC = $(SRC_DIR)/input_win.c
+else
+    INPUT_SRC = $(SRC_DIR)/input_linux.c
+endif
+
+GAME_SRC += $(INPUT_SRC)
+
 GAME_OBJ = $(GAME_SRC:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
 # Главный файл игры
@@ -64,6 +76,12 @@ $(BUILD_DIR)/%.o: $(TEST_DIR)/%.c | $(BUILD_DIR)
 
 $(BUILD_DIR)/%.o: $(UNITY_DIR)/%.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# Учитываем зависимости от заголовков (генерируются флагом -MMD)
+-include $(GAME_OBJ:.o=.d)
+-include $(MAIN_OBJ:.o=.d)
+-include $(TEST_OBJ:.o=.d)
+-include $(UNITY_OBJ:.o=.d)
 
 # Создание папки build
 $(BUILD_DIR):

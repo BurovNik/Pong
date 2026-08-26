@@ -1,11 +1,13 @@
 #include "unity.h"
 #include "test_ball.h"
 #include "test_score.h"
+#include "test_menu.h"
+#include "test_history.h"
 #include "test_borders.h"
 #include "test_Platforms.h"
 
-void setUp(void) {}
-void tearDown(void) {}
+void setUp(void);
+void tearDown(void);
 
 int main(void) {
     UNITY_BEGIN();
@@ -18,6 +20,14 @@ int main(void) {
     printf("\n==================\n test_score \n==================\n");
     testAllScore();
 
+    //test_menu.c
+    printf("\n==================\n test_menu \n==================\n");
+    testAllMenu();
+
+    //test_history.c
+    printf("\n==================\n test_menu \n==================\n");
+    testAllHistory();
+    
     //test_borders.c
     printf("\n==================\n test_Borders \n==================\n");
     testAllBorders();
